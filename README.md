@@ -2,6 +2,10 @@
 
 A lightweight, easy-to-use snowfall effect for any website.
 
+![Snowfall Plugin Demo](demo-preview.png)
+
+**[🔴 Live Demo](https://alin-morosanu.github.io/snowfall-plugin/demo.html)** | **[📦 Download](https://github.com/alin-morosanu/snowfall-plugin/archive/refs/heads/main.zip)**
+
 ## 🚀 Quick Start
 
 ### Method 1: Auto-Initialize (Easiest)
