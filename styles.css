@@ -15,7 +15,415 @@ body {
     color: #333;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.fullscreen-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    z-index: 1;
+}
+
+.fullscreen-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ================================
+   SNOWFALL EFFECT
+   ================================ */
+
+/* 
+   CONTROL SNOWFLAKES:
+   
+   Big snowflakes (❄): Change numberOfSnowflakes in snow.js
+   Small snowflakes (dots): Change smallSnowflakeDensity in snow.js
+   
+   smallSnowflakeDensity examples:
+   - 0.5 = half density (fewer snowflakes)
+   - 1.0 = normal density (default)
+   - 2.0 = double density (more snowflakes)
+*/
+
+:root {
+    --snow-density-multiplier: 1; /* Set dynamically by snow.js */
+}
+
+.snowfall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.snowfall::before,
+.snowfall::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background-image: 
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, white 0.8px, transparent 0.8px),
+        radial-gradient(circle, white 0.5px, transparent 0.5px),
+        radial-gradient(circle, rgba(255,255,255,0.9) 1.2px, transparent 1.2px),
+        radial-gradient(circle, rgba(255,255,255,0.7) 0.7px, transparent 0.7px),
+        radial-gradient(circle, rgba(255,255,255,0.8) 1.5px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.5) 0.6px, transparent 0.6px);
+    background-size: 
+        calc(217px * var(--snow-density-multiplier)) calc(217px * var(--snow-density-multiplier)),
+        calc(283px * var(--snow-density-multiplier)) calc(283px * var(--snow-density-multiplier)),
+        calc(167px * var(--snow-density-multiplier)) calc(167px * var(--snow-density-multiplier)),
+        calc(331px * var(--snow-density-multiplier)) calc(331px * var(--snow-density-multiplier)),
+        calc(193px * var(--snow-density-multiplier)) calc(193px * var(--snow-density-multiplier)),
+        calc(257px * var(--snow-density-multiplier)) calc(257px * var(--snow-density-multiplier)),
+        calc(397px * var(--snow-density-multiplier)) calc(397px * var(--snow-density-multiplier)),
+        calc(139px * var(--snow-density-multiplier)) calc(139px * var(--snow-density-multiplier));
+    background-position: 
+        0 0,
+        37px 73px,
+        89px 127px,
+        143px 53px,
+        181px 97px,
+        67px 151px,
+        113px 29px,
+        197px 163px;
+    animation: snowfall 15s linear infinite, snowfallPatternMelt 15s linear infinite;
+    opacity: 0.8;
+}
+
+.snowfall::after {
+    animation-name: snowfallChaotic, snowfallPatternMeltChaotic;
+    animation-duration: 22s, 22s;
+    animation-delay: -11s, -11s;
+    opacity: 0.6;
+    background-size: 
+        calc(241px * var(--snow-density-multiplier)) calc(241px * var(--snow-density-multiplier)),
+        calc(197px * var(--snow-density-multiplier)) calc(197px * var(--snow-density-multiplier)),
+        calc(307px * var(--snow-density-multiplier)) calc(307px * var(--snow-density-multiplier)),
+        calc(271px * var(--snow-density-multiplier)) calc(271px * var(--snow-density-multiplier)),
+        calc(349px * var(--snow-density-multiplier)) calc(349px * var(--snow-density-multiplier)),
+        calc(173px * var(--snow-density-multiplier)) calc(173px * var(--snow-density-multiplier)),
+        calc(223px * var(--snow-density-multiplier)) calc(223px * var(--snow-density-multiplier)),
+        calc(157px * var(--snow-density-multiplier)) calc(157px * var(--snow-density-multiplier));
+    background-position: 
+        23px 41px,
+        109px 83px,
+        61px 137px,
+        149px 17px,
+        71px 107px,
+        131px 59px,
+        41px 167px,
+        179px 91px;
+}
+
+/* Additional snow layers for variety */
+.snow-layer {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    pointer-events: none;
+}
+
+.snow-layer:nth-child(odd)::before,
+.snow-layer:nth-child(odd)::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background-image: 
+        radial-gradient(circle, white 0.9px, transparent 0.9px),
+        radial-gradient(circle, rgba(255,255,255,0.85) 0.6px, transparent 0.6px),
+        radial-gradient(circle, white 1.3px, transparent 1.3px),
+        radial-gradient(circle, rgba(255,255,255,0.75) 0.8px, transparent 0.8px);
+    background-size: 
+        calc(229px * var(--snow-density-multiplier)) calc(229px * var(--snow-density-multiplier)),
+        calc(311px * var(--snow-density-multiplier)) calc(311px * var(--snow-density-multiplier)),
+        calc(179px * var(--snow-density-multiplier)) calc(179px * var(--snow-density-multiplier)),
+        calc(269px * var(--snow-density-multiplier)) calc(269px * var(--snow-density-multiplier));
+    background-position: 
+        17px 29px,
+        103px 71px,
+        61px 139px,
+        127px 41px;
+    animation: snowfall 18s linear infinite, snowfallPatternMelt 18s linear infinite;
+    opacity: 0.5;
+}
+
+.snow-layer:nth-child(odd)::after {
+    animation-duration: 24s, 24s;
+    animation-delay: -12s, -12s;
+    opacity: 0.4;
+    background-size: 
+        calc(199px * var(--snow-density-multiplier)) calc(199px * var(--snow-density-multiplier)),
+        calc(263px * var(--snow-density-multiplier)) calc(263px * var(--snow-density-multiplier)),
+        calc(337px * var(--snow-density-multiplier)) calc(337px * var(--snow-density-multiplier)),
+        calc(211px * var(--snow-density-multiplier)) calc(211px * var(--snow-density-multiplier));
+    background-position: 
+        31px 53px,
+        97px 19px,
+        53px 127px,
+        139px 67px;
+}
+
+.snow-layer:nth-child(even)::before,
+.snow-layer:nth-child(even)::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background-image: 
+        radial-gradient(circle, rgba(255,255,255,0.9) 0.7px, transparent 0.7px),
+        radial-gradient(circle, white 1.1px, transparent 1.1px),
+        radial-gradient(circle, rgba(255,255,255,0.7) 0.55px, transparent 0.55px),
+        radial-gradient(circle, rgba(255,255,255,0.85) 0.95px, transparent 0.95px);
+    background-size: 
+        calc(251px * var(--snow-density-multiplier)) calc(251px * var(--snow-density-multiplier)),
+        calc(191px * var(--snow-density-multiplier)) calc(191px * var(--snow-density-multiplier)),
+        calc(359px * var(--snow-density-multiplier)) calc(359px * var(--snow-density-multiplier)),
+        calc(227px * var(--snow-density-multiplier)) calc(227px * var(--snow-density-multiplier));
+    background-position: 
+        43px 79px,
+        121px 37px,
+        73px 151px,
+        157px 23px;
+    animation: snowfall 20s linear infinite, snowfallPatternMelt 20s linear infinite;
+    opacity: 0.45;
+}
+
+.snow-layer:nth-child(even)::after {
+    animation-duration: 26s, 26s;
+    animation-delay: -13s, -13s;
+    opacity: 0.35;
+    background-size: 
+        calc(277px * var(--snow-density-multiplier)) calc(277px * var(--snow-density-multiplier)),
+        calc(203px * var(--snow-density-multiplier)) calc(203px * var(--snow-density-multiplier)),
+        calc(319px * var(--snow-density-multiplier)) calc(319px * var(--snow-density-multiplier)),
+        calc(247px * var(--snow-density-multiplier)) calc(247px * var(--snow-density-multiplier));
+    background-position: 
+        29px 61px,
+        109px 47px,
+        67px 131px,
+        149px 13px;
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(0%) translateX(0);
+    }
+    10% {
+        transform: translateY(10%) translateX(8px);
+    }
+    20% {
+        transform: translateY(20%) translateX(18px);
+    }
+    30% {
+        transform: translateY(30%) translateX(25px);
+    }
+    40% {
+        transform: translateY(40%) translateX(35px);
+    }
+    50% {
+        transform: translateY(50%) translateX(48px);
+    }
+    60% {
+        transform: translateY(60%) translateX(62px);
+    }
+    70% {
+        transform: translateY(70%) translateX(78px);
+    }
+    80% {
+        transform: translateY(80%) translateX(95px);
+    }
+    90% {
+        transform: translateY(90%) translateX(110px);
+    }
+    100% {
+        transform: translateY(100%) translateX(120px);
+    }
+}
+
+@keyframes snowfallChaotic {
+    0% {
+        transform: translateY(0%) translateX(0);
+    }
+    8% {
+        transform: translateY(8%) translateX(-5px);
+    }
+    18% {
+        transform: translateY(18%) translateX(-15px);
+    }
+    28% {
+        transform: translateY(28%) translateX(-22px);
+    }
+    38% {
+        transform: translateY(38%) translateX(-32px);
+    }
+    50% {
+        transform: translateY(50%) translateX(-55px);
+    }
+    62% {
+        transform: translateY(62%) translateX(-72px);
+    }
+    72% {
+        transform: translateY(72%) translateX(-88px);
+    }
+    82% {
+        transform: translateY(82%) translateX(-105px);
+    }
+    92% {
+        transform: translateY(92%) translateX(-125px);
+    }
+    100% {
+        transform: translateY(100%) translateX(-140px);
+    }
+}
+
+/* Melting animation for background snow pattern */
+@keyframes snowfallPatternMelt {
+    0% {
+        filter: blur(0px);
+        opacity: 0;
+    }
+    10% {
+        filter: blur(0px);
+        opacity: 0.4;
+    }
+    20% {
+        filter: blur(0px);
+        opacity: 0.8;
+    }
+    70% {
+        filter: blur(0px);
+        opacity: 0.8;
+    }
+    85% {
+        filter: blur(1.5px);
+        opacity: 0.5;
+    }
+    100% {
+        filter: blur(2px);
+        opacity: 0;
+    }
+}
+
+@keyframes snowfallPatternMeltChaotic {
+    0% {
+        filter: blur(0px);
+        opacity: 0;
+    }
+    8% {
+        filter: blur(0px);
+        opacity: 0.3;
+    }
+    18% {
+        filter: blur(0px);
+        opacity: 0.6;
+    }
+    65% {
+        filter: blur(0px);
+        opacity: 0.6;
+    }
+    80% {
+        filter: blur(1.5px);
+        opacity: 0.4;
+    }
+    100% {
+        filter: blur(2.5px);
+        opacity: 0;
+    }
+}
+
+/* Individual snowflake styling */
+.snowflake {
+    position: absolute;
+    top: -10%;
+    color: white;
+    font-size: 1em;
+    user-select: none;
+    pointer-events: none;
+    animation: snowflakeFall linear infinite;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+/* Melting snowflakes */
+.snowflake.melting {
+    animation-name: snowflakeMelt;
+}
+
+@keyframes snowflakeFall {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    30% {
+        transform: translateY(30vh) translateX(var(--drift2, 0)) rotate(108deg);
+    }
+    60% {
+        transform: translateY(60vh) translateX(calc(var(--drift, 0) * 0.6 + var(--drift3, 0))) rotate(216deg);
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) translateX(var(--drift, 0)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes snowflakeMelt {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg) scale(1);
+        opacity: 0;
+        filter: blur(0px);
+    }
+    10% {
+        opacity: 1;
+        filter: blur(0px);
+    }
+    35% {
+        transform: translateY(35vh) translateX(var(--drift3, 0)) rotate(126deg) scale(1);
+    }
+    70% {
+        transform: translateY(70vh) translateX(calc(var(--drift, 0) * 0.7 + var(--drift2, 0))) rotate(252deg) scale(1);
+        opacity: 1;
+        filter: blur(0px);
+    }
+    85% {
+        transform: translateY(85vh) translateX(calc(var(--drift, 0) * 0.85)) rotate(306deg) scale(0.5);
+        opacity: 0.3;
+        filter: blur(2px);
+    }
+    100% {
+        transform: translateY(90vh) translateX(var(--drift, 0)) rotate(360deg) scale(0.1);
+        opacity: 0;
+        filter: blur(4px);
+    }
 }
 
 header {
@@ -25,6 +433,7 @@ header {
     margin-bottom: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    position: relative;
 }
 
 header h1 {
@@ -38,26 +447,26 @@ main {
 }
 
 .example-section {
-    background: white;
+    background: linear-gradient(135deg, #3a4a7a 0%, #4a3a6a 100%);
     padding: 30px;
     border-radius: 10px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .example-section h2 {
-    color: #667eea;
+    color: #b8c5ff;
     margin-bottom: 10px;
 }
 
 .example-section > p {
-    color: #666;
+    color: #d0d8f0;
     margin-bottom: 20px;
 }
 
 /* Resizable Containers for Demo */
 .resizable-container {
-    border: 2px dashed #667eea;
+    border: 2px dashed #8899ff;
     padding: 20px;
     margin: 20px 0;
     resize: both;
@@ -65,7 +474,7 @@ main {
     min-width: 250px;
     min-height: 200px;
     max-width: 100%;
-    background: #f8f9fa;
+    background: #2a3555;
     border-radius: 8px;
     position: relative;
 }
@@ -76,7 +485,7 @@ main {
     bottom: 5px;
     right: 5px;
     font-size: 12px;
-    color: #667eea;
+    color: #b8c5ff;
     pointer-events: none;
 }
 
