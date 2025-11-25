@@ -2,10 +2,17 @@
 // ENHANCED SNOWFALL EFFECT
 // ================================
 
+// ====== SNOW CONTROLS (Adjust these!) ======
+const numberOfSnowflakes = 50;         // How many big snowflakes (❄)
+const smallSnowflakeDensity = 2;       // Small background dots density (0.5 = half, 2.0 = double)
+const snowflakeMinSize = 0.5;          // Minimum size for big snowflakes (em)
+const snowflakeMaxSize = 1.0;          // Maximum size for big snowflakes (em)
+const smallBitsMinSize = 0.5;          // Minimum size for small dots (px)
+const smallBitsMaxSize = 1.5;          // Maximum size for small dots (px)
+// ==========================================
+
 document.addEventListener('DOMContentLoaded', function() {
     const snowfallContainer = document.querySelector('.snowfall');
-    const numberOfSnowflakes = 50; // Control big snowflakes (❄)
-    const smallSnowflakeDensity = 2; // Control small background dots (0.5 = half density, 2.0 = double density)
     
     // Apply small snowflake density by adjusting background-size via CSS custom property
     applySmallSnowflakeDensity(smallSnowflakeDensity);
@@ -27,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Random properties for variety
         const startPosition = Math.random() * 100; // % from left
-        const size = Math.random() * 0.5 + 0.5; // 0.5 to 1
+        const size = Math.random() * (snowflakeMaxSize - snowflakeMinSize) + snowflakeMinSize; // Use configured range
         const duration = Math.random() * 15 + 10; // 10-25 seconds
         const delay = Math.random() * -25; // Stagger start times more (-25 to 0)
         
