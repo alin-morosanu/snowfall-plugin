@@ -5,8 +5,8 @@
 After pushing to GitHub, you can use the plugin via CDN:
 
 ```html
-<link rel="stylesheet" href="https://alin-morosanu.github.io/snowfall-plugin/snowfall-plugin.css">
-<script src="https://alin-morosanu.github.io/snowfall-plugin/snowfall-plugin.js" data-auto-init></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/alin-morosanu/snowfall-plugin@main/snowfall-plugin.css">
+<script src="https://cdn.jsdelivr.net/gh/alin-morosanu/snowfall-plugin@main/snowfall-plugin.js" data-auto-init defer></script>
 ```
 
 ## Option 2: Download Files
