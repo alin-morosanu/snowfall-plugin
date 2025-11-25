@@ -124,11 +124,15 @@
         function lightSnow() {
             SnowfallPlugin.destroy();
             SnowfallPlugin.init({
-                numberOfSnowflakes: 30,
-                smallSnowflakeDensity: 0.8,
-                numberOfLayers: 1
+                    numberOfSnowflakes: 10,
+                    smallSnowflakeDensity: 2,
+                    snowflakeMinSize: 0.5,
+                    snowflakeMaxSize: 2.0,
+                    smallBitsMinSize: 0.5,
+                    smallBitsMaxSize: 1.5,
+                    numberOfLayers: 2
             });
-            updateConfig('Light Snow: 30 flakes, 0.8 density, 1 layer');
+            updateConfig('Light Snow: 10 flakes, 2.0 density, 2 layers');
         }
         
         function normalSnow() {
@@ -136,31 +140,39 @@
             SnowfallPlugin.init({
                 numberOfSnowflakes: 50,
                 smallSnowflakeDensity: 2,
-                numberOfLayers: 2
+                snowflakeMinSize: 0.5,
+                snowflakeMaxSize: 2.0,
+                smallBitsMinSize: 0.5,
+                smallBitsMaxSize: 1.5,
+                numberOfLayers: 4
             });
-            updateConfig('Normal Snow: 50 flakes, 2.0 density, 2 layers');
+            updateConfig('Normal Snow: 50 flakes, 2.0 density, 4 layers');
         }
         
         function heavySnow() {
             SnowfallPlugin.destroy();
             SnowfallPlugin.init({
-                numberOfSnowflakes: 100,
-                smallSnowflakeDensity: 3,
-                numberOfLayers: 6
+                numberOfSnowflakes: 80,
+                smallSnowflakeDensity: .7,
+                snowflakeMinSize: 0.5,
+                snowflakeMaxSize: 2.0,
+                smallBitsMinSize: 0.5,
+                smallBitsMaxSize: 1.5,
+                numberOfLayers: 4
             });
-            updateConfig('Heavy Blizzard: 100 flakes, 3.0 density, 6 layers');
+            updateConfig('Heavy Blizzard: 80 flakes, 2.0 density, 4 layers');
         }
         
         function gentleFlurries() {
             SnowfallPlugin.destroy();
             SnowfallPlugin.init({
                 numberOfSnowflakes: 20,
-                smallSnowflakeDensity: 0.5,
+                smallSnowflakeDensity: 2,
                 snowflakeMinSize: 0.3,
                 snowflakeMaxSize: 0.7,
                 numberOfLayers: 1
             });
-            updateConfig('Gentle Flurries: 20 flakes, 0.5 density, smaller size, 1 layer');
+            updateConfig('Gentle Flurries: 20 flakes, 2.0 density, 1 layer');
         }
         
         function stopSnow() {
